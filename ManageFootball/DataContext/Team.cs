@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ManageFootball.DataContext
 {
@@ -28,14 +29,14 @@ namespace ManageFootball.DataContext
 
     }
 
-    public class TeamConfig : EntityTypeConfiguration<Team>
+    public class TeamConfig : IEntityTypeConfiguration<Team>
     {
-        public TeamConfig()
+        public void Configure(EntityTypeBuilder<Team> builder)
         {
-            ToTable("Teams");
-            HasKey(t => t.Id);
-            Property(t => t.Id)
-            .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            builder.ToTable("Teams");
+            builder.HasKey(t => t.Id);
+            builder.Property(t => t.Id)
+            .ValueGeneratedOnAdd();
         }
 
     }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ManageFootball.DataContext
 {
@@ -26,34 +27,34 @@ namespace ManageFootball.DataContext
         public string Time { get; set; }
     }
 
-    public class StatsConfig : EntityTypeConfiguration<Stats>
+    public class StatsConfig : IEntityTypeConfiguration<Stats>
     {
-        public StatsConfig()
+        public void Configure(EntityTypeBuilder<Stats> builder)
         {
-            ToTable("Stats");
-            HasKey(t => t.Id);
+            builder.ToTable("Stats");
+            builder.HasKey(s => s.Id);
 
-            Property(t => t.YellowCard)
-            .IsOptional();
-            Property(t => t.RedCard)
-            .IsOptional();
-            Property(t => t.Goals)
-            .IsOptional();
+            builder.Property(s => s.YellowCard)
+            .IsRequired(false);
+            builder.Property(t => t.RedCard)
+            .IsRequired(false);
+            builder.Property(t => t.Goals)
+            .IsRequired();
 
-            HasRequired(m => m.Match)
-            .WithMany(t => t.Stats)
-            .HasForeignKey(t => t.MatchCode)
-            .WillCascadeOnDelete(false);
+            builder.HasOne(s => s.Match)
+            .WithMany(s => s.Stats)
+            .HasForeignKey(s => s.MatchCode)
+            .OnDelete(DeleteBehavior.Restrict);
 
-            HasRequired(m => m.Team)
-            .WithMany(t => t.Stats)
-            .HasForeignKey(t => t.TeamId)
-            .WillCascadeOnDelete(false);
+            builder.HasOne(s => s.Team)
+            .WithMany(s => s.Stats)
+            .HasForeignKey(s => s.TeamId)
+            .OnDelete(DeleteBehavior.Restrict);
 
-            HasRequired(m => m.Player)
-            .WithMany(t => t.Stats)
-            .HasForeignKey(t => t.PlayerId)
-            .WillCascadeOnDelete(false);
+            builder.HasOne(s => s.Player)
+            .WithMany(s => s.Stats)
+            .HasForeignKey(s => s.PlayerId)
+            .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

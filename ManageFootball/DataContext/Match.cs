@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ManageFootball.DataContext
 {
@@ -26,23 +27,25 @@ namespace ManageFootball.DataContext
         public virtual ICollection<Score> Scores { get; set; }
         public virtual ICollection<Stats> Stats { get; set; }
     }
-    public class MatchConfig : EntityTypeConfiguration<Match>
+    public class MatchConfig : IEntityTypeConfiguration<Match>
     {
-        public MatchConfig()
+        public void Configure(EntityTypeBuilder<Match> builder)
         {
-            ToTable("Matches");
-            HasKey(t => t.Code);
+            builder.ToTable("Matches");
+            builder.HasKey(t => t.Code);
 
 
-            HasRequired(m => m.Team1)
+            builder.HasOne(m => m.Team1)
             .WithMany(t => t.Matches1)
             .HasForeignKey(m => m.TeamId1)
-            .WillCascadeOnDelete(false);
+            .IsRequired()
+            .OnDelete(DeleteBehavior.Restrict);
 
-            HasRequired(m => m.Team2)
+            builder.HasOne(m => m.Team2)
             .WithMany(t => t.Matches2)
             .HasForeignKey(m => m.TeamId2)
-            .WillCascadeOnDelete(false);
+            .IsRequired()
+            .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

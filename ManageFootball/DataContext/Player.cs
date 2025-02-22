@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ManageFootball.DataContext
 {
@@ -22,19 +23,19 @@ namespace ManageFootball.DataContext
         public virtual ICollection<Stats> Stats { get; set; }
 
     }
-    public class PlayerConfig : EntityTypeConfiguration<Player>
+    public class PlayerConfig : IEntityTypeConfiguration<Player>
     {
-        public PlayerConfig()
+        public void Configure(EntityTypeBuilder<Player> builder)
         {
-            ToTable("Players");
-            HasKey(t => t.Id);
-            Property(t => t.Id)
-            .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            builder.ToTable("Players");
+            builder.HasKey(p => p.Id);
+            builder.Property(p => p.Id)
+            .ValueGeneratedOnAdd();
 
-            HasRequired(m => m.Team)
-            .WithMany(t => t.Players)
-            .HasForeignKey(m => m.TeamId)
-            .WillCascadeOnDelete(false);
+            builder.HasOne(p => p.Team)
+            .WithMany(p => p.Players)
+            .HasForeignKey(p => p.TeamId)
+            .OnDelete(DeleteBehavior.Restrict);
         }
 
     }

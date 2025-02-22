@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ManageFootball.DataContext
 {
@@ -25,28 +26,30 @@ namespace ManageFootball.DataContext
         public bool? Criteria3 { get; set; }
     }
 
-    public class ScoreConfig : EntityTypeConfiguration<Score>
+    public class ScoreConfig : IEntityTypeConfiguration<Score>
     {
-        public ScoreConfig()
+        public void Configure(EntityTypeBuilder<Score> builder)
         {
-            ToTable("Scores");
-            HasKey(t => t.Id);
-            Property(t => t.Id)
-            .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            Property(t => t.Criteria2)
-            .IsOptional();
-            Property(t => t.Criteria3)
-            .IsOptional();
+            builder.ToTable("Scores");
+            builder.HasKey(s => s.Id);
+            builder.Property(s => s.Id)
+            .ValueGeneratedOnAdd();
+            builder.Property(s => s.Criteria2)
+            .IsRequired(false);
+            builder.Property(s => s.Criteria3)
+            .IsRequired(false);
 
-            HasRequired(m => m.Match)
-            .WithMany(t => t.Scores)
-            .HasForeignKey(m => m.MatchCode)
-            .WillCascadeOnDelete(false);
+            builder.HasOne(s => s.Match)
+            .WithMany(s => s.Scores)
+            .HasForeignKey(s => s.MatchCode)
+            .IsRequired()
+            .OnDelete(DeleteBehavior.Restrict);
 
-            HasRequired(m => m.Team)
-            .WithMany(t => t.Scores)
-            .HasForeignKey(m => m.TeamId)
-            .WillCascadeOnDelete(false);
+            builder.HasOne(s => s.Team)
+            .WithMany(s => s.Scores)
+            .HasForeignKey(s => s.TeamId)
+            .IsRequired()
+            .OnDelete(DeleteBehavior.Restrict);
         }
 
     }
