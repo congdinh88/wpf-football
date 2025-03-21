@@ -1,0 +1,139 @@
+﻿<UserControl x:Class="ManageFootball.ControlApp.Matchs"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ManageFootball.ControlApp"
+             mc:Ignorable="d" 
+             >
+    <Border
+        BorderBrush="LightGray"
+        BorderThickness="1"
+        CornerRadius="10"
+        Margin="20"
+        Width="400">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <TextBlock Margin="20 0 20 0" Text="Code"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="20 0 0 20" Text="time"/>
+                    <TextBlock Margin="20 0 0 20" Text="add"/>
+                </StackPanel>
+            </StackPanel>
+            <Border 
+                Grid.Row="1" 
+                BorderBrush="LightGray" 
+                BorderThickness="0.5"/>
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <TextBlock 
+                        Margin="20 0"
+                        FontSize="30" 
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Text="T1"/>
+                    <TextBlock 
+                        FontSize="20"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Text="1-2"/>
+                    <TextBlock 
+                        FontSize="30" 
+                        Margin="20 0"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        Text="T2"/>
+                </Grid>
+                <Border 
+                    Grid.Row="1"
+                    BorderBrush="LightGray"
+                    BorderThickness="0.5"
+                    Margin="20 0"/>
+                <Grid 
+                    Grid.Row="2"
+                    Margin="10">
+                    <StackPanel 
+                        Margin="20 0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center">
+                        <TextBlock 
+                            VerticalAlignment="Center"
+                            Text="P1"/>
+                    </StackPanel>
+                    <TextBlock 
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Text="Goals"/>
+                    <StackPanel 
+                        Margin="20 0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center">
+                        <TextBlock 
+                            VerticalAlignment="Center"
+                            Text="P2"/>
+                    </StackPanel>
+                </Grid>
+                <Grid 
+                    Margin="10"
+                    Grid.Row="3">
+                    <StackPanel 
+                        Margin="20 0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center">
+                        <TextBlock 
+                            VerticalAlignment="Center"
+                            Text="P1"/>
+                    </StackPanel>
+                    <TextBlock 
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Text="YellowCard"/>
+                    <StackPanel 
+                        Margin="20 0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center">
+                        <TextBlock 
+                            VerticalAlignment="Center"
+                            Text="P2"/>
+                    </StackPanel>
+                </Grid>
+                <Grid 
+                    Grid.Row="4"
+                    Margin="10">
+                    <StackPanel 
+                        Margin="20 0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center">
+                        <TextBlock 
+                            VerticalAlignment="Center"
+                            Text="P1"/>
+                    </StackPanel>
+                    <TextBlock 
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Text="RedCard"/>
+                    <StackPanel 
+                        Margin="20 0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center">
+                        <TextBlock 
+                            VerticalAlignment="Center"
+                            Text="P2"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>
