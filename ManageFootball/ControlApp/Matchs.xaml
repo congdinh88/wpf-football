@@ -67,19 +67,20 @@
                     <StackPanel 
                         Margin="20 0"
                         HorizontalAlignment="Left"
-                        VerticalAlignment="Center">
+                        VerticalAlignment="Top">
                         <TextBlock 
                             VerticalAlignment="Center"
                             Text="P1"/>
                     </StackPanel>
-                    <TextBlock 
-                        VerticalAlignment="Center"
+                    <Image 
+                        Height="16"
                         HorizontalAlignment="Center"
-                        Text="Goals"/>
+                        VerticalAlignment="Top"
+                        Source="/Static/Image/Football.png"/>
                     <StackPanel 
                         Margin="20 0"
                         HorizontalAlignment="Right"
-                        VerticalAlignment="Center">
+                        VerticalAlignment="Top">
                         <TextBlock 
                             VerticalAlignment="Center"
                             Text="P2"/>
@@ -91,19 +92,20 @@
                     <StackPanel 
                         Margin="20 0"
                         HorizontalAlignment="Left"
-                        VerticalAlignment="Center">
+                        VerticalAlignment="Top">
                         <TextBlock 
                             VerticalAlignment="Center"
                             Text="P1"/>
                     </StackPanel>
-                    <TextBlock 
-                        VerticalAlignment="Center"
+                    <Image 
+                        Height="16"
                         HorizontalAlignment="Center"
-                        Text="YellowCard"/>
+                        VerticalAlignment="Top"
+                        Source="/Static/Image/YellowCard.png"/>
                     <StackPanel 
                         Margin="20 0"
                         HorizontalAlignment="Right"
-                        VerticalAlignment="Center">
+                        VerticalAlignment="Top">
                         <TextBlock 
                             VerticalAlignment="Center"
                             Text="P2"/>
@@ -115,19 +117,20 @@
                     <StackPanel 
                         Margin="20 0"
                         HorizontalAlignment="Left"
-                        VerticalAlignment="Center">
+                        VerticalAlignment="Top">
                         <TextBlock 
                             VerticalAlignment="Center"
                             Text="P1"/>
                     </StackPanel>
-                    <TextBlock 
-                        VerticalAlignment="Center"
+                    <Image 
+                        Height="16"
                         HorizontalAlignment="Center"
-                        Text="RedCard"/>
+                        VerticalAlignment="Top"
+                        Source="/Static/Image/RedCard.png"/>
                     <StackPanel 
                         Margin="20 0"
                         HorizontalAlignment="Right"
-                        VerticalAlignment="Center">
+                        VerticalAlignment="Top">
                         <TextBlock 
                             VerticalAlignment="Center"
                             Text="P2"/>

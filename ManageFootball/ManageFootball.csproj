@@ -8,4 +8,16 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Static\Image\Football.png" />
+    <None Remove="Static\Image\RedCard.png" />
+    <None Remove="Static\Image\YellowCard.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Static\Image\Football.png" />
+    <Resource Include="Static\Image\RedCard.png" />
+    <Resource Include="Static\Image\YellowCard.png" />
+  </ItemGroup>
+
 </Project>
