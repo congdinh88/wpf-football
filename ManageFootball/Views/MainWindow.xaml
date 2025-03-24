@@ -26,14 +26,8 @@
                     <ListViewItem Height="30" Content="Ranks"/>
                     <ListViewItem Height="30" Content="Statict"/>
                     <ListViewItem Height="30" Content="Match"/>
+                    <ListViewItem Height="30" Content="Update"/>
                 </ListView>
-                <Expander Header="Update">
-                    <ListView BorderThickness="0">
-                        <ListViewItem Height="30" Content="Goals"/>
-                        <ListViewItem Height="30" Content="Yellow"/>
-                        <ListViewItem Height="30" Content="Red"/>
-                    </ListView>
-                </Expander>
             </StackPanel>
             <GridSplitter 
                 Grid.Column="1"
@@ -44,7 +38,7 @@
                 Grid.Column="2"
                 HorizontalAlignment="Center"
                 NavigationUIVisibility="Hidden"
-                Source="/Pages/MatchPage.xaml"/>
+                Source="/Pages/UpdatePage.xaml"/>
         </Grid>
         <StackPanel 
             Grid.Row="1"

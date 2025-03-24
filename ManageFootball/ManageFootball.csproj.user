@@ -2,10 +2,16 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
+    <Compile Update="ControlApp\AutoComplete.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="ControlApp\Matchs.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Pages\MatchPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\UpdatePage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
