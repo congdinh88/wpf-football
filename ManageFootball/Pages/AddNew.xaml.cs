@@ -22,10 +22,9 @@ namespace ManageFootball.Pages
     public partial class AddNew : Page
     {
         public ObservableCollection<AddNewInfo> UpdatesInfo;
-        public List<string> CodeList { get; set; } = new() { "M1", "M2", "M3" };
-        public List<string> TeamList { get; set; } = new() { "Red", "Blue", "Green" };
-        public List<string> NumberList { get; set; } = new() { "10", "20", "30" };
-        public List<string> ChoiceList { get; set; } = new() { "Yes", "No", "Maybe" };
+        public List<string> Team1List { get; set; } = new() { "Red", "Blue", "Green" };
+        public List<string> Team2List { get; set; } = new() { "Red", "Blue", "Green" };
+        public List<string> AddList { get; set; } = new() { "Sân 1", "Sân 2"};
         public AddNew()
         {
             InitializeComponent();
@@ -54,9 +53,9 @@ namespace ManageFootball.Pages
     public class AddNewInfo
     {
         public string Code { get; set; }
-        public string Team { get; set; }
-        public string Number { get; set; }
-        public string Choice { get; set; }
-        public string Time { get; set; }
+        public string Team1 { get; set; }
+        public string Team2 { get; set; }
+        public string Add { get; set; }
+        public DateOnly? Date1 { get; set; }
     }
 }

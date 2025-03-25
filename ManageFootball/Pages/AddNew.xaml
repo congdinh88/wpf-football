@@ -8,8 +8,8 @@
       Title="AddNew">
 
     <Border 
-    Width="1000"
-    Padding="10">
+        Width="1000"
+        Padding="10">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="35"/>
@@ -20,36 +20,40 @@
             Grid.Row="1"
             TabStripPlacement="Bottom">
                 <TabItem
-                Header="Chi tiết">
-                    <DataGrid x:Name="dataGrid"
-                    VerticalGridLinesBrush="LightGray"
-                    HorizontalGridLinesBrush="LightGray"
-                    VerticalAlignment="Top"
-                    HorizontalAlignment="Left"
-                    AutoGenerateColumns="False"
-                    LoadingRow="dataGrid_LoadingRow"
-                    SelectionUnit="Cell"
-                    SelectionMode="Extended">
+                    Header="Chi tiết">
+                    <ScrollViewer
+                        HorizontalScrollBarVisibility="Auto"
+                        VerticalScrollBarVisibility="Auto">
+                        
+                        <DataGrid 
+                            x:Name="dataGrid"
+                            VerticalGridLinesBrush="LightGray"
+                            HorizontalGridLinesBrush="LightGray"
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Left"
+                            AutoGenerateColumns="False"
+                            LoadingRow="dataGrid_LoadingRow"
+                            SelectionUnit="Cell"
+                            SelectionMode="Extended">
 
                         <DataGrid.Resources>
-                            <CollectionViewSource x:Key="CodeListSource" Source="{Binding CodeList}" />
-                            <CollectionViewSource x:Key="Team1ListSource" Source="{Binding TeamList}" />
-                            <CollectionViewSource x:Key="Team2ListSource" Source="{Binding NumberList}" />
-                        </DataGrid.Resources>
+                            <CollectionViewSource x:Key="Team1ListSource" Source="{Binding Team1List}" />
+                                <CollectionViewSource x:Key="Team2ListSource" Source="{Binding Team2List}" />
+                                <CollectionViewSource x:Key="AddListSource" Source="{Binding AddList}" />
+                            </DataGrid.Resources>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Code" Width="100"
+                            <DataGridTextColumn Header="Mã trận" Width="100"
                                 Binding="{Binding Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            <DataGridComboBoxColumn Header="Team1" Width="150"
-                                SelectedItemBinding="{Binding Team, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            <DataGridComboBoxColumn Header="Đội 1" Width="150"
+                                SelectedItemBinding="{Binding Team1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 ItemsSource="{Binding Source={StaticResource Team1ListSource}}" />
-                            <DataGridComboBoxColumn Header="Team2" Width="150"
-                                SelectedItemBinding="{Binding Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            <DataGridComboBoxColumn Header="Đội 2" Width="150"
+                                SelectedItemBinding="{Binding Team2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 ItemsSource="{Binding Source={StaticResource Team2ListSource}}" />
-                            <DataGridTextColumn Header="Time" Width="100"
-                                Binding="{Binding Time, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            <DataGridTextColumn Header="Add" Width="100"
-                                Binding="{Binding Time, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            <DataGridTemplateColumn Width="100" Header="Ngày">
+                                <DataGridComboBoxColumn Header="Địa điểm" Width="150"
+                                    SelectedItemBinding="{Binding Add, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    ItemsSource="{Binding Source={StaticResource AddListSource}}" />
+                                <DataGridTemplateColumn Width="100" Header="Ngày">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <DatePicker 
@@ -75,6 +79,7 @@
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
+                    </ScrollViewer>
                 </TabItem>
             </TabControl>
             <StackPanel 

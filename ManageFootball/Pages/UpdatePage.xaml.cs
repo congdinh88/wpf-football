@@ -26,10 +26,16 @@ namespace ManageFootball.Pages
         public List<string> CodeList { get; set; } = new() { "M1", "M2", "M3" };
         public List<string> TeamList { get; set; } = new() { "Red", "Blue", "Green" };
         public List<string> NumberList { get; set; } = new() { "10", "20", "30" };
-        public List<string> ChoiceList { get; set; } = new() { "Yes", "No", "Maybe" };
+        public ObservableCollection<KeyValuePairModel> ChoiceList { get; set; }
         public UpdatePage()
         {
             InitializeComponent();
+            ChoiceList = new ObservableCollection<KeyValuePairModel>
+            {
+                new KeyValuePairModel { Key = "G", Value = "Bàn thắng" },
+                new KeyValuePairModel { Key = "Y", Value = "Thẻ vàng" },
+                new KeyValuePairModel { Key = "R", Value = "Thẻ đỏ" }
+            };
             Updates = new ObservableCollection<UpdateInfo>();
             DataContext = this;
             dataGrid.ItemsSource = Updates;
@@ -50,7 +56,6 @@ namespace ManageFootball.Pages
                 }
             }
         }
-       
     }
     public class UpdateInfo
     {
@@ -60,5 +65,10 @@ namespace ManageFootball.Pages
         public string Choice { get; set; }
         public string Time { get; set; }
     }
-
+    //public class KeyValuePairModel
+    //{
+    //    public string Key { get; set; }
+    //    public string Value { get; set; }
+    //    public string FormattedValue => $"{Key}: {Value}";
+    //}
 }

@@ -33,12 +33,16 @@
                 Grid.Column="1"
                 Width="3" 
                 HorizontalAlignment="Stretch"/>
-            <Frame 
-                x:Name="main"
+            <ScrollViewer 
                 Grid.Column="2"
-                HorizontalAlignment="Center"
-                NavigationUIVisibility="Hidden"
-                Source="/Pages/AddNew.xaml"/>
+                VerticalScrollBarVisibility="Auto"
+                HorizontalScrollBarVisibility="Auto">
+                <Frame 
+                    x:Name="main"
+                    HorizontalAlignment="Center"
+                    NavigationUIVisibility="Hidden"
+                    Source="/Pages/UpdatePage.xaml"/>
+            </ScrollViewer>
         </Grid>
         <StackPanel 
             Grid.Row="1"

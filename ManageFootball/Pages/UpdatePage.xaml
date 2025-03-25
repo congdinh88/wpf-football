@@ -36,28 +36,37 @@
                             <CollectionViewSource x:Key="CodeListSource" Source="{Binding CodeList}" />
                             <CollectionViewSource x:Key="TeamListSource" Source="{Binding TeamList}" />
                             <CollectionViewSource x:Key="NumberListSource" Source="{Binding NumberList}" />
-                            <CollectionViewSource x:Key="ChoiceListSource" Source="{Binding ChoiceList}" />
+                            <CollectionViewSource x:Key="ChoiceListSource" Source="{Binding Items1}" />
                         </DataGrid.Resources>
 
                         <DataGrid.Columns>
-                            <DataGridComboBoxColumn Header="Code" Width="50"
+                            <DataGridComboBoxColumn Header="Mã trận" Width="50"
                                 SelectedItemBinding="{Binding Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 ItemsSource="{Binding Source={StaticResource CodeListSource}}" />
 
-                            <DataGridComboBoxColumn Header="Team" Width="100"
+                            <DataGridComboBoxColumn Header="Đội bóng" Width="100"
                                 SelectedItemBinding="{Binding Team, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 ItemsSource="{Binding Source={StaticResource TeamListSource}}" />
 
-                            <DataGridComboBoxColumn Header="Number" Width="50"
+                            <DataGridComboBoxColumn Header="Số áo" Width="50"
                                 SelectedItemBinding="{Binding Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 ItemsSource="{Binding Source={StaticResource NumberListSource}}" />
 
-                            <DataGridComboBoxColumn Header="Choice" Width="50"
-                                SelectedItemBinding="{Binding Choice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                ItemsSource="{Binding Source={StaticResource ChoiceListSource}}" />
+                            <DataGridTemplateColumn Header="Bàn thắng/thẻ" Width="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <uc:ComboBoxCell 
+                                            Items="{Binding ChoiceList, 
+                                            RelativeSource={RelativeSource Mode=FindAncestor, 
+                                            AncestorType=Page}}" 
+                                            SelectedKey="{Binding Choice, Mode=TwoWay}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                
+                            </DataGridTemplateColumn>
 
-                            <DataGridTextColumn Header="Time" Width="50"
-                            Binding="{Binding Time, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Header="Phút" Width="50"
+                                Binding="{Binding Time, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>
