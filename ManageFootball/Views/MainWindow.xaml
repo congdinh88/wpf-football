@@ -38,7 +38,7 @@
                 Grid.Column="2"
                 HorizontalAlignment="Center"
                 NavigationUIVisibility="Hidden"
-                Source="/Pages/UpdatePage.xaml"/>
+                Source="/Pages/AddNew.xaml"/>
         </Grid>
         <StackPanel 
             Grid.Row="1"
