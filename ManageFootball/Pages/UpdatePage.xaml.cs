@@ -1,4 +1,5 @@
 ﻿using ManageFootball.ControlApp;
+using ManageFootball.Templetes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,6 +23,7 @@ namespace ManageFootball.Pages
     /// </summary>
     public partial class UpdatePage : Page
     {
+        public ObservableCollection<DataSuggesList> MainDataList { get; set; }
         public ObservableCollection<UpdateInfo> Updates;
         public List<string> CodeList { get; set; } = new() { "M1", "M2", "M3" };
         public List<string> TeamList { get; set; } = new() { "Red", "Blue", "Green" };
@@ -35,6 +37,12 @@ namespace ManageFootball.Pages
                 new KeyValuePairModel { Key = "G", Value = "Bàn thắng" },
                 new KeyValuePairModel { Key = "Y", Value = "Thẻ vàng" },
                 new KeyValuePairModel { Key = "R", Value = "Thẻ đỏ" }
+            };
+            MainDataList = new ObservableCollection<DataSuggesList>
+            {
+                new DataSuggesList { Col1 = "1", Col2 = "Item A", Col3 = "Desc A" },
+                new DataSuggesList { Col1 = "2", Col2 = "Item B", Col3 = "Desc B" },
+                new DataSuggesList { Col1 = "3", Col2 = "Item C", Col3 = "Desc C" }
             };
             Updates = new ObservableCollection<UpdateInfo>();
             DataContext = this;
@@ -72,6 +80,7 @@ namespace ManageFootball.Pages
         public string Number { get; set; }
         public string Choice { get; set; }
         public string Time { get; set; }
+            public string Test { get; set; }
     }
     public class KeyValuePairModel
     {
