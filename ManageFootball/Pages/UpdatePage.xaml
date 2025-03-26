@@ -36,7 +36,7 @@
                             <CollectionViewSource x:Key="CodeListSource" Source="{Binding CodeList}" />
                             <CollectionViewSource x:Key="TeamListSource" Source="{Binding TeamList}" />
                             <CollectionViewSource x:Key="NumberListSource" Source="{Binding NumberList}" />
-                            <CollectionViewSource x:Key="ChoiceListSource" Source="{Binding Items1}" />
+                            <CollectionViewSource x:Key="ChoiceListSource" Source="{Binding ChoiceList}" />
                         </DataGrid.Resources>
 
                         <DataGrid.Columns>
@@ -48,23 +48,45 @@
                                 SelectedItemBinding="{Binding Team, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 ItemsSource="{Binding Source={StaticResource TeamListSource}}" />
 
-                            <DataGridComboBoxColumn Header="Số áo" Width="50"
-                                SelectedItemBinding="{Binding Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                ItemsSource="{Binding Source={StaticResource NumberListSource}}" />
+                           
+                            <DataGridTemplateColumn Header="Số áo" Width="50">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Number}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <ComboBox 
+                                            ItemsSource="{Binding Source={StaticResource NumberListSource}}"
+                                            SelectedValue="{Binding Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            IsEditable="True"
+                                            StaysOpenOnEdit="True"
+                                            SelectedValuePath="."
+                                            PreviewKeyUp="ComboBox_PreviewKeyUp"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
 
                             <DataGridTemplateColumn Header="Bàn thắng/thẻ" Width="100">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <uc:ComboBoxCell 
-                                            Items="{Binding ChoiceList, 
-                                            RelativeSource={RelativeSource Mode=FindAncestor, 
-                                            AncestorType=Page}}" 
-                                            SelectedKey="{Binding Choice, Mode=TwoWay}"/>
+                                        <TextBlock Text="{Binding Choice}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
-                                
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <ComboBox 
+                                            ItemsSource="{Binding Source={StaticResource ChoiceListSource}}" 
+                                            SelectedValue="{Binding Choice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            IsEditable="True"
+                                            StaysOpenOnEdit="True"
+                                            SelectedValuePath="Key"
+                                            DisplayMemberPath="FormattedValue"
+                                            PreviewKeyUp="ComboBox_PreviewKeyUp"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
                             </DataGridTemplateColumn>
-
                             <DataGridTextColumn Header="Phút" Width="50"
                                 Binding="{Binding Time, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </DataGrid.Columns>

@@ -56,6 +56,14 @@ namespace ManageFootball.Pages
                 }
             }
         }
+        private void ComboBox_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            ComboBox comboBox = sender as ComboBox;
+            if (comboBox != null)
+            {
+                comboBox.IsDropDownOpen = true; // Mở danh sách khi nhập ký tự
+            }
+        }
     }
     public class UpdateInfo
     {
@@ -65,10 +73,10 @@ namespace ManageFootball.Pages
         public string Choice { get; set; }
         public string Time { get; set; }
     }
-    //public class KeyValuePairModel
-    //{
-    //    public string Key { get; set; }
-    //    public string Value { get; set; }
-    //    public string FormattedValue => $"{Key}: {Value}";
-    //}
+    public class KeyValuePairModel
+    {
+        public string Key { get; set; }
+        public string Value { get; set; }
+        public string FormattedValue => $"{Key}: {Value}";
+    }
 }

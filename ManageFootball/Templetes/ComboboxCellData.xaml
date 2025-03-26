@@ -1,0 +1,24 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:ManageFootball.Templetes">
+    
+    <Style x:Key="ComboBoxStyleWithEvent" TargetType="ComboBox">
+        <EventSetter Event="PreviewKeyUp" Handler="local:ComboboxCellData.ComboBox_PreviewKeyUp"/>
+    </Style>
+
+    <!-- Template cho Cell hiển thị TextBlock -->
+    <DataTemplate x:Key="ComboBoxDisplayTemplate">
+        <TextBlock Text="{Binding Number}" />
+    </DataTemplate>
+
+    <!-- Template cho Cell khi chỉnh sửa -->
+    <DataTemplate x:Key="ComboBoxEditTemplate">
+        <ComboBox 
+            ItemsSource="{Binding Source={StaticResource NumberListSource}}"
+            SelectedValue="{Binding Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            IsEditable="True"
+            StaysOpenOnEdit="True"
+            SelectedValuePath="."
+            Style="{StaticResource ComboBoxStyleWithEvent}"/>
+    </DataTemplate>
+</ResourceDictionary>
