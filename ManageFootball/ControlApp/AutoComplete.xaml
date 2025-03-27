@@ -8,10 +8,10 @@
     <StackPanel>
         <TextBox x:Name="textBox"
                  BorderThickness="0"
-                 Height="30"
+                 VerticalAlignment="Stretch"
+                 HorizontalAlignment="Stretch"
                  Text="{Binding SearchText, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}"
                  TextChanged="TextBox_TextChanged"/>
-
         <Popup x:Name="popup"
                AllowsTransparency="True"
                PlacementTarget="{Binding ElementName=textBox}"

@@ -21,12 +21,14 @@
             <StackPanel 
                 Grid.Column="0"
                 Margin="10 0 0 0">
-                <ListView BorderThickness="0">
-                    <ListViewItem Height="30" Content="Match"/>
-                    <ListViewItem Height="30" Content="Ranks"/>
-                    <ListViewItem Height="30" Content="Statict"/>
-                    <ListViewItem Height="30" Content="Match"/>
-                    <ListViewItem Height="30" Content="Update"/>
+                <ListView 
+                    x:Name="listView" 
+                    BorderThickness="0"
+                    SelectionChanged="listView_SelectionChanged">
+                    <ListViewItem Height="30" Content="Lịch thi đấu"/>
+                    <ListViewItem Height="30" Content="Thống kê"/>
+                    <ListViewItem Height="30" Content="Thể lệ"/>
+                    <ListViewItem Height="30" Content="Cập nhập"/>
                 </ListView>
             </StackPanel>
             <GridSplitter 
@@ -38,10 +40,10 @@
                 VerticalScrollBarVisibility="Auto"
                 HorizontalScrollBarVisibility="Auto">
                 <Frame 
-                    x:Name="main"
+                    x:Name="mainFrame"
                     HorizontalAlignment="Center"
                     NavigationUIVisibility="Hidden"
-                    Source="/Pages/UpdatePage.xaml"/>
+                    Source="/Pages/Ruler.xaml"/>
             </ScrollViewer>
         </Grid>
         <StackPanel 

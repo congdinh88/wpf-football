@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Static\Docs\Ruler.pdf" />
     <None Remove="Static\Image\Football.png" />
     <None Remove="Static\Image\RedCard.png" />
     <None Remove="Static\Image\YellowCard.png" />
@@ -16,10 +17,14 @@
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="DocX" Version="4.0.25105.5786" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Static\Docs\Ruler.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Static\Image\Football.png" />
     <Resource Include="Static\Image\RedCard.png" />
     <Resource Include="Static\Image\YellowCard.png" />

@@ -87,17 +87,15 @@
                             <DataGridTextColumn Header="Phút" Width="50"
                                 Binding="{Binding Time, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                            <DataGridTemplateColumn  Header="test" >
-                                <DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn  Header="test" Width="*">
+                                <DataGridTemplateColumn.CellTemplate >
                                     <DataTemplate >
-                                        <Grid VerticalAlignment="Stretch">
                                             
                                         <uc:AutoComplete 
                                                 SelectedColumn="Col2" 
                                             VerticalAlignment="Stretch"
                                             HorizontalAlignment="Stretch"
                                             DataSuggesList="{Binding DataContext.MainDataList, RelativeSource={RelativeSource AncestorType=Page}}"/>
-                                        </Grid>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
