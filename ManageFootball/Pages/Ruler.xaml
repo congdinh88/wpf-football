@@ -7,7 +7,8 @@
       mc:Ignorable="d" 
       Title="Ruler">
 
-    <Grid Width="800">
-        <WebBrowser Name="webViewer"/>
+    <Grid Width="1000">
+        <WebBrowser 
+            Name="webViewer"/>
     </Grid>
 </Page>

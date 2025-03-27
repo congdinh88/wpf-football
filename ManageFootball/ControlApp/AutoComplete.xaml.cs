@@ -151,6 +151,7 @@ namespace ManageFootball.ControlApp
                 popup.IsOpen = false;
             }
         }
+
     }
 
     public class DataSuggesList

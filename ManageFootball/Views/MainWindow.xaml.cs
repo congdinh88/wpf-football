@@ -25,25 +25,10 @@ namespace ManageFootball
 
         private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string selectedItem = listView.SelectedItem.ToString();
-
-            switch (selectedItem)
+            if (listView.SelectedItem is ListViewItem selectedItem)
             {
-                case "Lịch thi đấu":
-                    mainFrame.Navigate(new MatchPage());
-                    break;
-                case "Thống kê":
-                    mainFrame.Navigate(new MatchPage());
-                    break;
-                case "Thể lệ":
-                    mainFrame.Navigate(new Ruler());
-                    break;
-                case "Cập nhật":
-                    mainFrame.Navigate(new UpdatePage());
-                    break;
-                default:
-                    MessageBox.Show("Không tìm thấy trang!");
-                    break;
+                string pageName = selectedItem.Tag.ToString();
+                mainFrame.Navigate(new Uri(pageName, UriKind.Relative));
             }
         }
     }

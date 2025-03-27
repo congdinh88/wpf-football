@@ -9,7 +9,6 @@
       mc:Ignorable="d" 
       Title="UpdatePage">
     <Border 
-        
         Width="1000"
         Padding="10">
         <Grid>
@@ -23,8 +22,9 @@
                 TabStripPlacement="Bottom">
                 <TabItem
                     Header="Chi tiết">
-                    <DataGrid x:Name="dataGrid"
-                              RowHeight="30"
+                    <DataGrid 
+                        x:Name="dataGrid"
+                        RowHeight="30"
                         VerticalGridLinesBrush="LightGray"
                         HorizontalGridLinesBrush="LightGray"
                         VerticalAlignment="Top"
@@ -87,14 +87,12 @@
                             <DataGridTextColumn Header="Phút" Width="50"
                                 Binding="{Binding Time, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                            <DataGridTemplateColumn  Header="test" Width="*">
+                            <DataGridTemplateColumn  
+                                Header="test">
                                 <DataGridTemplateColumn.CellTemplate >
                                     <DataTemplate >
-                                            
                                         <uc:AutoComplete 
-                                                SelectedColumn="Col2" 
-                                            VerticalAlignment="Stretch"
-                                            HorizontalAlignment="Stretch"
+                                            SelectedColumn="Col2" 
                                             DataSuggesList="{Binding DataContext.MainDataList, RelativeSource={RelativeSource AncestorType=Page}}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>

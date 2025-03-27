@@ -1,0 +1,197 @@
+﻿<Page x:Class="ManageFootball.Pages.StatsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ManageFootball.Pages"
+      mc:Ignorable="d" 
+      Title="StatsPage">
+
+    <Grid Width="1000">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel
+            Grid.Row="0">
+            <TextBlock
+                Text="-Bảng xếp hạng:"/>
+            <DataGrid
+                x:Name="dataGridRank"
+                IsReadOnly="True"
+                AutoGenerateColumns="False"
+                LoadingRow="dataGrid_LoadingRow"
+                HorizontalAlignment="Left"
+                VerticalGridLinesBrush="LightGray"
+                HorizontalGridLinesBrush="LightGray"
+                SelectionUnit="Cell"
+                SelectionMode="Extended"
+                CanUserSortColumns="False"
+                Margin="20 10 0 0">
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    </Style>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Header="Đội bóng"
+                        Width="150"
+                        Binding="{Binding Team}"/>
+                    <DataGridTextColumn
+                        Header="Trận"
+                        Width="Auto"
+                        Binding="{Binding Match}"/>
+                    <DataGridTextColumn
+                        Header="Thắng"
+                        Width="Auto"
+                        Binding="{Binding Win}"/>
+                    <DataGridTextColumn
+                        Header="Thua"
+                        Width="Auto"
+                        Binding="{Binding Draw}"/>
+                    <DataGridTextColumn
+                        Header="Hòa"
+                        Width="Auto"
+                        Binding="{Binding Loss}"/>
+                    <DataGridTextColumn
+                        Header="Bàn thắng"
+                        Width="Auto"
+                        Binding="{Binding Goal}"/>
+                    <DataGridTextColumn
+                        Header="Bàn Thua"
+                        Width="Auto"
+                        Binding="{Binding GoalConced}"/>
+                    <DataGridTextColumn
+                        Header="Hiệu số"
+                        Width="Auto"
+                        Binding="{Binding GoalDifference}"/>
+                    <DataGridTextColumn
+                        Header="Điểm"
+                        Width="Auto"
+                        Binding="{Binding Score}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+        <StackPanel
+            Grid.Row="1"
+            Margin="0 30 0 0">
+            <TextBlock
+                Text="-Danh sách ghi bàn:"/>
+            <DataGrid
+                x:Name="dataGridTopScorer"
+                IsReadOnly="True"
+                AutoGenerateColumns="False"
+                LoadingRow="dataGrid_LoadingRow"
+                HorizontalAlignment="Left"
+                VerticalGridLinesBrush="LightGray"
+                HorizontalGridLinesBrush="LightGray"
+                SelectionUnit="Cell"
+                SelectionMode="Extended"
+                CanUserSortColumns="False"
+                Margin="20 10 0 0">
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    </Style>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Header="Đội bóng"
+                        Width="150"
+                        Binding="{Binding Team}"/>
+                    <DataGridTextColumn
+                        Header="Cầu thủ"
+                        Width="Auto"
+                        Binding="{Binding Player}"/>
+                    <DataGridTextColumn
+                        Header="Số áo"
+                        Width="Auto"
+                        Binding="{Binding Number}"/>
+                    <DataGridTextColumn
+                        Width="30"
+                        Binding="{Binding Goals}">
+                        <DataGridTextColumn.Header>
+                            <Image 
+                                Height="16"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                Source="/Static/Image/Football.png"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+        <StackPanel
+            Grid.Row="2"
+            Margin="0 30 0 0">
+            <TextBlock
+                Text="-Thống kê thẻ phạt:"/>
+            <DataGrid
+                x:Name="dataGridCard"
+                IsReadOnly="True"
+                AutoGenerateColumns="False"
+                LoadingRow="dataGrid_LoadingRow"
+                HorizontalAlignment="Left"
+                VerticalGridLinesBrush="LightGray"
+                HorizontalGridLinesBrush="LightGray"
+                SelectionUnit="Cell"
+                SelectionMode="Extended"
+                CanUserSortColumns="False"
+                Margin="20 10 0 0">
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    </Style>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Header="Đội bóng"
+                        Width="150"
+                        Binding="{Binding Team}"/>
+                    <DataGridTextColumn
+                        Width="30"
+                        Binding="{Binding YellowCard}">
+                        <DataGridTextColumn.Header>
+                            <Image 
+                                Height="16"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                Source="/Static/Image/YellowCard.png"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn
+                        Width="30"
+                        Binding="{Binding RedCard}">
+                        <DataGridTextColumn.Header>
+                            <Image 
+                                Height="16"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                Source="/Static/Image/RedCard.png"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</Page>

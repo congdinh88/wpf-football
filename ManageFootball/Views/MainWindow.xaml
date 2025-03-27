@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:ManageFootball"
         xmlns:uc="clr-namespace:ManageFootball.ControlApp"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
@@ -25,10 +26,22 @@
                     x:Name="listView" 
                     BorderThickness="0"
                     SelectionChanged="listView_SelectionChanged">
-                    <ListViewItem Height="30" Content="Lịch thi đấu"/>
-                    <ListViewItem Height="30" Content="Thống kê"/>
-                    <ListViewItem Height="30" Content="Thể lệ"/>
-                    <ListViewItem Height="30" Content="Cập nhập"/>
+                    <ListViewItem 
+                        Height="30" 
+                        Tag="Pages/MatchPage.xaml"
+                        Content="Lịch thi đấu"/>
+                    <ListViewItem 
+                        Height="30" 
+                        Tag="Pages/StatsPage.xaml"
+                        Content="Thống kê"/>
+                    <ListViewItem 
+                        Height="30" 
+                        Tag="Pages/Ruler.xaml"
+                        Content="Thể lệ"/>
+                    <ListViewItem 
+                        Height="30" 
+                        Tag="Pages/UpdatePage.xaml"
+                        Content="Cập nhập"/>
                 </ListView>
             </StackPanel>
             <GridSplitter 

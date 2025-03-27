@@ -17,6 +17,9 @@
     <Compile Update="Pages\Ruler.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Pages\StatsPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Pages\UpdatePage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
