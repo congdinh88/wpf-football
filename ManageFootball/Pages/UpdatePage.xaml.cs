@@ -29,9 +29,11 @@ namespace ManageFootball.Pages
         public List<string> TeamList { get; set; } = new() { "Red", "Blue", "Green" };
         public List<string> NumberList { get; set; } = new() { "10", "20", "30" };
         public ObservableCollection<KeyValuePairModel> ChoiceList { get; set; }
+
         public UpdatePage()
         {
             InitializeComponent();
+
             ChoiceList = new ObservableCollection<KeyValuePairModel>
             {
                 new KeyValuePairModel { Key = "G", Value = "Bàn thắng" },

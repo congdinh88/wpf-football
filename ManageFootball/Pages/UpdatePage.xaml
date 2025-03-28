@@ -89,13 +89,13 @@
 
                             <DataGridTemplateColumn  
                                 Header="test">
-                                <DataGridTemplateColumn.CellTemplate >
+                                <DataGridTemplateColumn.CellEditingTemplate >
                                     <DataTemplate >
                                         <uc:AutoComplete 
                                             SelectedColumn="Col2" 
                                             DataSuggesList="{Binding DataContext.MainDataList, RelativeSource={RelativeSource AncestorType=Page}}"/>
                                     </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>

@@ -139,6 +139,8 @@ namespace ManageFootball.ControlApp
             }
         }
 
+
+
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (dataGrid.SelectedItem is DataSuggesList selectedItem)

@@ -16,7 +16,25 @@
             BorderThickness="0"
             Text="{Binding SearchText, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}"
             TextChanged="TextBox_TextChanged"
-            />
+            >
+            <TextBox.Resources>
+                <Style TargetType="TextBox">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TextBox">
+                                <Grid>
+                                    <Border Background="White" BorderBrush="LightGray" BorderThickness="1"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <ScrollViewer x:Name="PART_ContentHost"/>
+                                        <TextBlock/>
+                                    </StackPanel>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TextBox.Resources>
+        </TextBox>
         <Popup 
             x:Name="popup"
             Grid.Row="1"
@@ -27,8 +45,8 @@
                 <DataGrid x:Name="dataGrid"
                           HeadersVisibility="None"
                           AutoGenerateColumns="False"
-                          HorizontalGridLinesBrush="Transparent"
-                          VerticalGridLinesBrush="Transparent"
+                          HorizontalGridLinesBrush="LightGray"
+                          VerticalGridLinesBrush="LightGray"
                           SelectionChanged="DataGrid_SelectionChanged"
                           ItemsSource="{Binding FilteredData, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=OneWay}"
                           >
