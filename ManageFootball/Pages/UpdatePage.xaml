@@ -88,10 +88,12 @@
                                 Binding="{Binding Time, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                             <DataGridTemplateColumn  
+                                Width="100"
                                 Header="test">
                                 <DataGridTemplateColumn.CellEditingTemplate >
                                     <DataTemplate >
                                         <uc:AutoComplete 
+                                            SearchText="{Binding Test, RelativeSource={RelativeSource AncestorType=Page}}"
                                             SelectedColumn="Col2" 
                                             DataSuggesList="{Binding DataContext.MainDataList, RelativeSource={RelativeSource AncestorType=Page}}"/>
                                     </DataTemplate>

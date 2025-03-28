@@ -154,6 +154,11 @@ namespace ManageFootball.ControlApp
             }
         }
 
+        private void BtnPopup_Click(object sender, RoutedEventArgs e)
+        {
+            dataGrid.ItemsSource = DataSuggesList;
+            popup.IsOpen = !popup.IsOpen;
+        }
     }
 
     public class DataSuggesList

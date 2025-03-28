@@ -24,10 +24,29 @@
                             <ControlTemplate TargetType="TextBox">
                                 <Grid>
                                     <Border Background="White" BorderBrush="LightGray" BorderThickness="1"/>
-                                    <StackPanel Orientation="Horizontal">
-                                        <ScrollViewer x:Name="PART_ContentHost"/>
-                                        <TextBlock/>
-                                    </StackPanel>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="24"/>
+                                        </Grid.ColumnDefinitions>
+                                        <ScrollViewer 
+                                            x:Name="PART_ContentHost"
+                                            Grid.Column="0"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            />
+                                        <Button 
+                                            Grid.Column="1"
+                                            x:Name="BtnPopup"
+                                            FontFamily="Segoe MDL2 Assets"
+                                            Width="24"
+                                            BorderThickness="0"
+                                            Background="Transparent"
+                                            VerticalAlignment="Stretch"
+                                            HorizontalAlignment="Right"
+                                            Content="&#xE70D;"
+                                            Click="BtnPopup_Click"/>
+                                    </Grid>
                                 </Grid>
                             </ControlTemplate>
                         </Setter.Value>
