@@ -1,7 +1,9 @@
-﻿using System;
+﻿using ManageFootball.Pages;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -24,12 +26,27 @@ namespace ManageFootball.ControlApp
 
     public partial class AutoComplete : UserControl
     {
+        private DataGrid parentDataGrid;
         public AutoComplete()
         {
             InitializeComponent();
             FilteredData = new ObservableCollection<DataSuggesList>();
+            Loaded += AutoComplete_Loaded;
         }
 
+        private void AutoComplete_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Tìm DataGrid cha khi AutoComplete được tải
+            parentDataGrid = FindParentDataGrid(this);
+            //if (parentDataGrid != null)
+            //{
+            //    MessageBox.Show("Found parent DataGrid during initialization");
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Could not find parent DataGrid during initialization");
+            //}
+        }
         // Dữ liệu từ bên ngoài (MainWindow, Page,...) truyền vào
         public ObservableCollection<DataSuggesList> DataSuggesList
         {
@@ -140,9 +157,33 @@ namespace ManageFootball.ControlApp
         }
 
 
-
+        private DataGrid FindParentDataGrid(DependencyObject child)
+        {
+            DependencyObject parent = child;
+            while (parent != null)
+            {
+                //MessageBox.Show($"Current parent in FindParentDataGrid: {parent.GetType().Name}");
+                if (parent is DataGrid)
+                {
+                    return parent as DataGrid;
+                }
+                parent = VisualTreeHelper.GetParent(parent);
+            }
+            return null;
+        }
+        private T FindParent<T>(DependencyObject child) where T : DependencyObject
+        {
+            DependencyObject parent = VisualTreeHelper.GetParent(child);
+            while (parent != null && !(parent is T))
+            {
+                parent = VisualTreeHelper.GetParent(parent);
+                MessageBox.Show($"Current parent: {parent?.GetType().Name}");
+            }
+            return parent as T;
+        }
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+           
             if (dataGrid.SelectedItem is DataSuggesList selectedItem)
             {
                 var selectedProperty = selectedItem.GetType().GetProperty(SelectedColumn);
@@ -151,6 +192,29 @@ namespace ManageFootball.ControlApp
                     SearchText = selectedProperty.GetValue(selectedItem)?.ToString();
                 }
                 popup.IsOpen = false;
+
+                var cell = FindParent<DataGridCell>(this);
+                if (cell != null && cell.DataContext is UpdateInfo updateInfo)
+                {
+                    updateInfo.Test = SearchText;
+                    //MessageBox.Show($"Directly set Test to: {updateInfo.Test}");
+                }
+                else
+                {
+                    //MessageBox.Show("Could not find DataGridCell");
+                }
+
+                if (parentDataGrid != null)
+                {
+                    parentDataGrid.BeginEdit();
+                    parentDataGrid.CommitEdit(DataGridEditingUnit.Cell, true);
+                    parentDataGrid.CommitEdit(DataGridEditingUnit.Row, true);
+                    //MessageBox.Show("DataGrid committed edit");
+                }
+                else
+                {
+                    //MessageBox.Show("Parent DataGrid not found (not initialized)");
+                }
             }
         }
 

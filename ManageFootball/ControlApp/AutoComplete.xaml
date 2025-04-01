@@ -14,7 +14,7 @@
             x:Name="textBox"
             Grid.Row="0"
             BorderThickness="0"
-            Text="{Binding SearchText, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}"
+            Text="{Binding SearchText, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
             TextChanged="TextBox_TextChanged"
             >
             <TextBox.Resources>

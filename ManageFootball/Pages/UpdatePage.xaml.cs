@@ -3,6 +3,7 @@ using ManageFootball.Templetes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,7 +34,6 @@ namespace ManageFootball.Pages
         public UpdatePage()
         {
             InitializeComponent();
-
             ChoiceList = new ObservableCollection<KeyValuePairModel>
             {
                 new KeyValuePairModel { Key = "G", Value = "Bàn thắng" },
@@ -75,14 +75,30 @@ namespace ManageFootball.Pages
             }
         }
     }
-    public class UpdateInfo
+    public class UpdateInfo: INotifyPropertyChanged
     {
+        private string _test;
         public string Code { get; set; }
         public string Team { get; set; }
         public string Number { get; set; }
         public string Choice { get; set; }
         public string Time { get; set; }
-            public string Test { get; set; }
+        //public string Test { get; set; }
+        public string Test
+        {
+            get => _test;
+            set
+            {
+                _test = value;
+                MessageBox.Show($"Test updated to: {_test}"); // Log để kiểm tra
+                OnPropertyChanged(nameof(Test));
+            }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
     public class KeyValuePairModel
     {

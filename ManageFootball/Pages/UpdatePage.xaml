@@ -90,10 +90,15 @@
                             <DataGridTemplateColumn  
                                 Width="100"
                                 Header="test">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Test}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
                                 <DataGridTemplateColumn.CellEditingTemplate >
                                     <DataTemplate >
                                         <uc:AutoComplete 
-                                            SearchText="{Binding Test, RelativeSource={RelativeSource AncestorType=Page}}"
+                                            SearchText="{Binding Test, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                             SelectedColumn="Col2" 
                                             DataSuggesList="{Binding DataContext.MainDataList, RelativeSource={RelativeSource AncestorType=Page}}"/>
                                     </DataTemplate>
