@@ -20,7 +20,7 @@ namespace ManageFootball
         public MainWindow()
         {
             InitializeComponent();
-            mainFrame.Navigate(new MatchPage());
+            mainFrame.Navigate(new UpdatePage());
         }
 
         private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)

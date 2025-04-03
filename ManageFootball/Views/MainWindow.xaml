@@ -56,7 +56,7 @@
                     x:Name="mainFrame"
                     HorizontalAlignment="Center"
                     NavigationUIVisibility="Hidden"
-                    Source="/Pages/Ruler.xaml"/>
+                    Source="/Pages/UpdatePage.xaml"/>
             </ScrollViewer>
         </Grid>
         <StackPanel 

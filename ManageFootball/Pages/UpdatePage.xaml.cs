@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,33 +23,41 @@ namespace ManageFootball.Pages
     /// <summary>
     /// Interaction logic for UpdatePage.xaml
     /// </summary>
+    /// 
+
     public partial class UpdatePage : Page
     {
-        public ObservableCollection<DataSuggesList> MainDataList { get; set; }
-        public ObservableCollection<UpdateInfo> Updates;
-        public List<string> CodeList { get; set; } = new() { "M1", "M2", "M3" };
-        public List<string> TeamList { get; set; } = new() { "Red", "Blue", "Green" };
-        public List<string> NumberList { get; set; } = new() { "10", "20", "30" };
-        public ObservableCollection<KeyValuePairModel> ChoiceList { get; set; }
+        public ObservableCollection<DataItem> Items { get; set; } = new ObservableCollection<DataItem>
+        {
+            new DataItem(),
+        };
+
+        public ObservableCollection<SuggestionItem> Suggestions { get; set; } = new ObservableCollection<SuggestionItem>
+        {
+            new SuggestionItem { Col1 = "A1", Col2 = "B1", Col3 = "C1" },
+            new SuggestionItem { Col1 = "A2", Col2 = "B2", Col3 = "C2" },
+            new SuggestionItem { Col1 = "A3", Col2 = "B3", Col3 = "C3" }
+        };
 
         public UpdatePage()
         {
             InitializeComponent();
-            ChoiceList = new ObservableCollection<KeyValuePairModel>
-            {
-                new KeyValuePairModel { Key = "G", Value = "Bàn thắng" },
-                new KeyValuePairModel { Key = "Y", Value = "Thẻ vàng" },
-                new KeyValuePairModel { Key = "R", Value = "Thẻ đỏ" }
-            };
-            MainDataList = new ObservableCollection<DataSuggesList>
-            {
-                new DataSuggesList { Col1 = "1", Col2 = "Item A", Col3 = "Desc A" },
-                new DataSuggesList { Col1 = "2", Col2 = "Item B", Col3 = "Desc B" },
-                new DataSuggesList { Col1 = "3", Col2 = "Item C", Col3 = "Desc C" }
-            };
-            Updates = new ObservableCollection<UpdateInfo>();
             DataContext = this;
-            dataGrid.ItemsSource = Updates;
+
+            // Bắt sự kiện khi row edit kết thúc
+            MainDataGrid.RowEditEnding += (s, e) =>
+            {
+                if (e.EditAction == DataGridEditAction.Commit)
+                {
+                    var lastItem = Items[^1];
+                    if (!string.IsNullOrEmpty(lastItem.Column1) ||
+                        !string.IsNullOrEmpty(lastItem.Column2) ||
+                        !string.IsNullOrEmpty(lastItem.Column3))
+                    {
+                        Items.Add(new DataItem());
+                    }
+                }
+            };
         }
         private void dataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
         {
@@ -66,44 +75,12 @@ namespace ManageFootball.Pages
                 }
             }
         }
-        private void ComboBox_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            ComboBox comboBox = sender as ComboBox;
-            if (comboBox != null)
-            {
-                comboBox.IsDropDownOpen = true; // Mở danh sách khi nhập ký tự
-            }
-        }
+
     }
-    public class UpdateInfo: INotifyPropertyChanged
+    public class DataItem
     {
-        private string _test;
-        public string Code { get; set; }
-        public string Team { get; set; }
-        public string Number { get; set; }
-        public string Choice { get; set; }
-        public string Time { get; set; }
-        //public string Test { get; set; }
-        public string Test
-        {
-            get => _test;
-            set
-            {
-                _test = value;
-                MessageBox.Show($"Test updated to: {_test}"); // Log để kiểm tra
-                OnPropertyChanged(nameof(Test));
-            }
-        }
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-    }
-    public class KeyValuePairModel
-    {
-        public string Key { get; set; }
-        public string Value { get; set; }
-        public string FormattedValue => $"{Key}: {Value}";
+        public string Column1 { get; set; }
+        public string Column2 { get; set; }
+        public string Column3 { get; set; }
     }
 }

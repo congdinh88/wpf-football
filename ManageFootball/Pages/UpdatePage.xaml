@@ -22,91 +22,62 @@
                 TabStripPlacement="Bottom">
                 <TabItem
                     Header="Chi tiết">
-                    <DataGrid 
-                        x:Name="dataGrid"
-                        RowHeight="30"
-                        VerticalGridLinesBrush="LightGray"
-                        HorizontalGridLinesBrush="LightGray"
-                        VerticalAlignment="Top"
-                        HorizontalAlignment="Left"
-                        AutoGenerateColumns="False"
-                        LoadingRow="dataGrid_LoadingRow"
-                        SelectionUnit="Cell"
-                        SelectionMode="Extended">
-
-                        <DataGrid.Resources>
-                            <CollectionViewSource x:Key="CodeListSource" Source="{Binding CodeList}" />
-                            <CollectionViewSource x:Key="TeamListSource" Source="{Binding TeamList}" />
-                            <CollectionViewSource x:Key="NumberListSource" Source="{Binding NumberList}" />
-                            <CollectionViewSource x:Key="ChoiceListSource" Source="{Binding ChoiceList}" />
-                        </DataGrid.Resources>
-
+                    <DataGrid x:Name="MainDataGrid" 
+                             SelectionUnit="Cell"
+                              ItemsSource="{Binding Items}" 
+                              HorizontalAlignment="Left"
+                              AutoGenerateColumns="False">
                         <DataGrid.Columns>
-                            <DataGridComboBoxColumn Header="Mã trận" Width="50"
-                                SelectedItemBinding="{Binding Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                ItemsSource="{Binding Source={StaticResource CodeListSource}}" />
-
-                            <DataGridComboBoxColumn Header="Đội bóng" Width="100"
-                                SelectedItemBinding="{Binding Team, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                ItemsSource="{Binding Source={StaticResource TeamListSource}}" />
-
-                           
-                            <DataGridTemplateColumn Header="Số áo" Width="50">
+                            <DataGridTemplateColumn Header="Column 1">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Number}"/>
+                                        <TextBlock Text="{Binding Column1}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                                 <DataGridTemplateColumn.CellEditingTemplate>
                                     <DataTemplate>
-                                        <ContentControl ContentTemplate="{DynamicResource FilteredComboBoxTemplate}" />
-                                        
+                                        <uc:AutoComplete
+                                            Text="{Binding Column1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Suggestions="{Binding DataContext.Suggestions, RelativeSource={RelativeSource AncestorType=Page}}"
+                                            DisplayMemberPath="Col1"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellEditingTemplate>
                             </DataGridTemplateColumn>
-
-                            <DataGridTemplateColumn Header="Bàn thắng/thẻ" Width="100">
+                            <DataGridTemplateColumn Header="Column 2">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Choice}" />
+                                        <TextBlock Text="{Binding Column2}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
+
                                 <DataGridTemplateColumn.CellEditingTemplate>
                                     <DataTemplate>
-                                        <ComboBox 
-                                            ItemsSource="{Binding Source={StaticResource ChoiceListSource}}" 
-                                            SelectedValue="{Binding Choice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                            IsEditable="True"
-                                            StaysOpenOnEdit="True"
-                                            SelectedValuePath="Key"
-                                            DisplayMemberPath="FormattedValue"
-                                            PreviewKeyUp="ComboBox_PreviewKeyUp"/>
+                                        <uc:AutoComplete
+                                            Text="{Binding Column2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Suggestions="{Binding DataContext.Suggestions, RelativeSource={RelativeSource AncestorType=Page}}"
+                                            DisplayMemberPath="Col2"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellEditingTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="Phút" Width="50"
-                                Binding="{Binding Time, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-
-                            <DataGridTemplateColumn  
-                                Width="100"
-                                Header="test">
+                            <DataGridTemplateColumn Header="Column 3">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Test}"/>
+                                        <TextBlock Text="{Binding Column3}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
-                                <DataGridTemplateColumn.CellEditingTemplate >
-                                    <DataTemplate >
-                                        <uc:AutoComplete 
-                                            SearchText="{Binding Test, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                            SelectedColumn="Col2" 
-                                            DataSuggesList="{Binding DataContext.MainDataList, RelativeSource={RelativeSource AncestorType=Page}}"/>
+
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <uc:AutoComplete
+                                            Text="{Binding Column3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Suggestions="{Binding DataContext.Suggestions, RelativeSource={RelativeSource AncestorType=Page}}"
+                                            DisplayMemberPath="Col3"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellEditingTemplate>
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                    
+
                 </TabItem>
             </TabControl>
             <StackPanel 
@@ -114,6 +85,10 @@
                 Orientation="Horizontal">
                 <Button Margin="10" Width="100" Height="30" Content="Cập nhập"/>
                 <Button Margin="10" Width="100" Height="30" Content="Hủy"/>
+                <uc:AutoComplete Width="200"
+    Text="{Binding Column3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+    Suggestions="{Binding DataContext.Suggestions, RelativeSource={RelativeSource AncestorType=Page}}"
+    DisplayMemberPath="Col3"/>
             </StackPanel>
         </Grid>
     </Border>
