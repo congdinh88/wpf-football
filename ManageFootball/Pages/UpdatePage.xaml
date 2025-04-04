@@ -22,62 +22,13 @@
                 TabStripPlacement="Bottom">
                 <TabItem
                     Header="Chi tiết">
-                    <DataGrid x:Name="MainDataGrid" 
-                             SelectionUnit="Cell"
-                              ItemsSource="{Binding Items}" 
-                              HorizontalAlignment="Left"
-                              AutoGenerateColumns="False">
-                        <DataGrid.Columns>
-                            <DataGridTemplateColumn Header="Column 1">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Column1}"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                                <DataGridTemplateColumn.CellEditingTemplate>
-                                    <DataTemplate>
-                                        <uc:AutoComplete
-                                            Text="{Binding Column1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                            Suggestions="{Binding DataContext.Suggestions, RelativeSource={RelativeSource AncestorType=Page}}"
-                                            DisplayMemberPath="Col1"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellEditingTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Header="Column 2">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Column2}"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-
-                                <DataGridTemplateColumn.CellEditingTemplate>
-                                    <DataTemplate>
-                                        <uc:AutoComplete
-                                            Text="{Binding Column2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                            Suggestions="{Binding DataContext.Suggestions, RelativeSource={RelativeSource AncestorType=Page}}"
-                                            DisplayMemberPath="Col2"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellEditingTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Header="Column 3">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Column3}"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-
-                                <DataGridTemplateColumn.CellEditingTemplate>
-                                    <DataTemplate>
-                                        <uc:AutoComplete
-                                            Text="{Binding Column3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                            Suggestions="{Binding DataContext.Suggestions, RelativeSource={RelativeSource AncestorType=Page}}"
-                                            DisplayMemberPath="Col3"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellEditingTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
-
+                    <uc:AutoComplete
+                        ItemsSource="{Binding Employees}"
+                        SelectedItem="{Binding SelectedEmployee}"
+                        SelectedValuePath="Name"
+                        SearchText="{Binding SearchText}"
+                        Width="300"
+                        Margin="10"/>
                 </TabItem>
             </TabControl>
             <StackPanel 
@@ -85,10 +36,6 @@
                 Orientation="Horizontal">
                 <Button Margin="10" Width="100" Height="30" Content="Cập nhập"/>
                 <Button Margin="10" Width="100" Height="30" Content="Hủy"/>
-                <uc:AutoComplete Width="200"
-    Text="{Binding Column3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-    Suggestions="{Binding DataContext.Suggestions, RelativeSource={RelativeSource AncestorType=Page}}"
-    DisplayMemberPath="Col3"/>
             </StackPanel>
         </Grid>
     </Border>

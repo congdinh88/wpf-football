@@ -1,9 +1,12 @@
-﻿using ManageFootball.Pages;
+﻿using CommunityToolkit.Mvvm.Input;
+using ManageFootball.Pages;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -24,104 +27,166 @@ namespace ManageFootball.ControlApp
     /// <summary>
     /// Interaction logic for AutoComplete.xaml
     /// </summary>
+    /// 
 
     public partial class AutoComplete : UserControl
     {
+        private CollectionView _collectionView;
 
-        public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register("Text", typeof(string), typeof(AutoComplete),
-                new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        public static readonly DependencyProperty ItemsSourceProperty =
+            DependencyProperty.Register(nameof(ItemsSource), typeof(IEnumerable), typeof(AutoComplete),
+                new PropertyMetadata(null, OnItemsSourceChanged));
 
-        public static readonly DependencyProperty SuggestionsProperty =
-            DependencyProperty.Register("Suggestions", typeof(System.Collections.IEnumerable), typeof(AutoComplete));
+        public static readonly DependencyProperty SelectedItemProperty =
+            DependencyProperty.Register(nameof(SelectedItem), typeof(object), typeof(AutoComplete),
+                new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-        public static readonly DependencyProperty DisplayMemberPathProperty =
-            DependencyProperty.Register("DisplayMemberPath", typeof(string), typeof(AutoComplete));
+        public static readonly DependencyProperty SelectedValuePathProperty =
+            DependencyProperty.Register(nameof(SelectedValuePath), typeof(string), typeof(AutoComplete),
+                new PropertyMetadata("Name"));
 
-        public string Text
-        {
-            get => (string)GetValue(TextProperty);
-            set => SetValue(TextProperty, value);
-        }
+        public static readonly DependencyProperty SearchTextProperty =
+            DependencyProperty.Register(nameof(SearchText), typeof(string), typeof(AutoComplete),
+                new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-        // Thêm DependencyProperty mới
-        public static readonly DependencyProperty IsEditingProperty =
-            DependencyProperty.Register("IsEditing", typeof(bool), typeof(AutoComplete),
-                new PropertyMetadata(false, OnIsEditingChanged));
-
-        public bool IsEditing
-        {
-            get => (bool)GetValue(IsEditingProperty);
-            set => SetValue(IsEditingProperty, value);
-        }
-
-        private static void OnIsEditingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var control = d as AutoComplete;
-            if (!(bool)e.NewValue)
-            {
-                // Commit thay đổi khi kết thúc edit
-                control.textBox.GetBindingExpression(TextBox.TextProperty)?.UpdateSource();
-            }
-        }
-
-        public System.Collections.IEnumerable Suggestions
-        {
-            get => (System.Collections.IEnumerable)GetValue(SuggestionsProperty);
-            set => SetValue(SuggestionsProperty, value);
-        }
-
-        public string DisplayMemberPath
-        {
-            get => (string)GetValue(DisplayMemberPathProperty);
-            set => SetValue(DisplayMemberPathProperty, value);
-        }
+        public static readonly DependencyProperty IsPopupOpenProperty =
+            DependencyProperty.Register(nameof(IsPopupOpen), typeof(bool), typeof(AutoComplete),
+                new PropertyMetadata(false));
         public AutoComplete()
         {
             InitializeComponent();
+            Loaded += (s, e) => InitializeCollectionView();
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public IEnumerable ItemsSource
         {
-            popup.IsOpen = true;
-            suggestionDataGrid.SelectedItem = null;
-            suggestionDataGrid.Focus();
-        }
-
-        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            // Kết thúc edit mode
-            IsEditing = false;
+            get => (IEnumerable)GetValue(ItemsSourceProperty);
+            set => SetValue(ItemsSourceProperty, value);
         }
 
-        private void SuggestionDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public object SelectedItem
         {
-            if (suggestionDataGrid.SelectedItem != null)
+            get => GetValue(SelectedItemProperty);
+            set => SetValue(SelectedItemProperty, value);
+        }
+
+        public string SelectedValuePath
+        {
+            get => (string)GetValue(SelectedValuePathProperty);
+            set => SetValue(SelectedValuePathProperty, value);
+        }
+
+        public string SearchText
+        {
+            get => (string)GetValue(SearchTextProperty);
+            set => SetValue(SearchTextProperty, value);
+        }
+
+        public bool IsPopupOpen
+        {
+            get => (bool)GetValue(IsPopupOpenProperty);
+            set => SetValue(IsPopupOpenProperty, value);
+        }
+
+        public IEnumerable FilteredItems => _collectionView;
+
+        private static void OnItemsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is AutoComplete control)
+                control.InitializeCollectionView();
+        }
+
+        private void InitializeCollectionView()
+        {
+            if (ItemsSource == null) return;
+
+            _collectionView = new CollectionView(ItemsSource);
+            _collectionView.Filter = item =>
             {
-                var selectedItem = suggestionDataGrid.SelectedItem;
-                if (!string.IsNullOrEmpty(DisplayMemberPath))
-                {
-                    var prop = selectedItem.GetType().GetProperty(DisplayMemberPath);
-                    Text = prop?.GetValue(selectedItem)?.ToString() ?? string.Empty;
-                }
-                popup.IsOpen = false;
+                if (string.IsNullOrEmpty(SearchText)) return true;
+
+                var prop = item.GetType().GetProperty(SelectedValuePath);
+                var value = prop?.GetValue(item)?.ToString() ?? "";
+                return value.Contains(SearchText, StringComparison.OrdinalIgnoreCase);
+            };
+
+            PART_DataGrid.ItemsSource = _collectionView;
+        }
+
+        private void TogglePopup(object sender, RoutedEventArgs e)
+        {
+            IsPopupOpen = !IsPopupOpen;
+        }
+
+        private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (PART_DataGrid.SelectedItem != null)
+            {
+                SelectedItem = PART_DataGrid.SelectedItem;
+                var prop = SelectedItem.GetType().GetProperty(SelectedValuePath);
+                SearchText = prop?.GetValue(SelectedItem)?.ToString() ?? "";
+                IsPopupOpen = false;
             }
         }
 
-        private void SuggestionDataGrid_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void HandleDataGridKey(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            switch (e.Key)
             {
-                SuggestionDataGrid_SelectionChanged(sender, null);
-                e.Handled = true;
+                case Key.Escape:
+                    IsPopupOpen = false;
+                    e.Handled = true;
+                    break;
+
+                case Key.Enter:
+                    if (PART_DataGrid.SelectedItem != null)
+                    {
+                        ApplySelection();
+                        e.Handled = true;
+                    }
+                    break;
             }
         }
-    }
+        private void ApplySelection()
+        {
+            if (PART_DataGrid.SelectedItem == null) return;
 
-    public class SuggestionItem
-    {
-        public string Col1 { get; set; }
-        public string Col2 { get; set; }
-        public string Col3 { get; set; }
+            SelectedItem = PART_DataGrid.SelectedItem;
+            var prop = SelectedItem.GetType().GetProperty(SelectedValuePath);
+            SearchText = prop?.GetValue(SelectedItem)?.ToString() ?? "";
+            IsPopupOpen = false;
+            PART_TextBox.Focus();
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+
+            if (!IsPopupOpen) return;
+
+            switch (e.Key)
+            {
+                case Key.Down:
+                    MoveSelection(1);
+                    e.Handled = true;
+                    break;
+
+                case Key.Up:
+                    MoveSelection(-1);
+                    e.Handled = true;
+                    break;
+            }
+        }
+
+        private void MoveSelection(int direction)
+        {
+            if (PART_DataGrid.Items.Count == 0) return;
+
+            var newIndex = PART_DataGrid.SelectedIndex + direction;
+            newIndex = Math.Clamp(newIndex, 0, PART_DataGrid.Items.Count - 1);
+
+            PART_DataGrid.SelectedIndex = newIndex;
+            PART_DataGrid.ScrollIntoView(PART_DataGrid.SelectedItem);
+        }
     }
 
 }

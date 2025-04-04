@@ -27,37 +27,16 @@ namespace ManageFootball.Pages
 
     public partial class UpdatePage : Page
     {
-        public ObservableCollection<DataItem> Items { get; set; } = new ObservableCollection<DataItem>
-        {
-            new DataItem(),
-        };
+        public ObservableCollection<DataItem> Items { get; set; } = new ObservableCollection<DataItem>();
+        
 
-        public ObservableCollection<SuggestionItem> Suggestions { get; set; } = new ObservableCollection<SuggestionItem>
-        {
-            new SuggestionItem { Col1 = "A1", Col2 = "B1", Col3 = "C1" },
-            new SuggestionItem { Col1 = "A2", Col2 = "B2", Col3 = "C2" },
-            new SuggestionItem { Col1 = "A3", Col2 = "B3", Col3 = "C3" }
-        };
 
         public UpdatePage()
         {
             InitializeComponent();
             DataContext = this;
-
+            Items.Add(new DataItem { Column1 = "", Column2 = "", Column3 = "" });
             // Bắt sự kiện khi row edit kết thúc
-            MainDataGrid.RowEditEnding += (s, e) =>
-            {
-                if (e.EditAction == DataGridEditAction.Commit)
-                {
-                    var lastItem = Items[^1];
-                    if (!string.IsNullOrEmpty(lastItem.Column1) ||
-                        !string.IsNullOrEmpty(lastItem.Column2) ||
-                        !string.IsNullOrEmpty(lastItem.Column3))
-                    {
-                        Items.Add(new DataItem());
-                    }
-                }
-            };
         }
         private void dataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
         {

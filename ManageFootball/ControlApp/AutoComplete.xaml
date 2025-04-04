@@ -4,32 +4,100 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ManageFootball.ControlApp"
-             mc:Ignorable="d" >
+             xmlns:conv="clr-namespace:ManageFootball.Converters"
+             mc:Ignorable="d"
+             x:Name="uc">
+
+    <UserControl.Resources>
+        <conv:HighlightConverter x:Key="HighlightConverter"/>
+
+        <Style TargetType="DataGridRow">
+            <Setter Property="Background" Value="Transparent"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FFEEE9FD"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#FFDDD5FC"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
     <Grid>
-        <TextBox 
-            x:Name="textBox" 
-            Text="{Binding Text, RelativeSource={RelativeSource AncestorType=UserControl}, 
-            UpdateSourceTrigger=PropertyChanged}"
-            LostFocus="TextBox_LostFocus"/>
-        <Button x:Name="button" Content="▼" Width="20" HorizontalAlignment="Right" Click="Button_Click"/>
-        <Popup x:Name="popup" 
-               PlacementTarget="{Binding ElementName=textBox}" 
+        <TextBox x:Name="PART_TextBox">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TextBox">
+                                <Grid>
+                                    <Border Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        CornerRadius="2"/>
+                                    <ScrollViewer x:Name="PART_ContentHost"
+                                            Margin="3"/>
+                                    <Button x:Name="PART_DropDownButton"
+                                        Content="▼"
+                                        Width="20"
+                                        HorizontalAlignment="Right"
+                                        Click="TogglePopup"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        IsTabStop="False"/>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+
+        <Popup x:Name="PART_Popup"
+               PlacementTarget="{Binding ElementName=PART_TextBox}"
                Placement="Bottom"
-               AllowsTransparency="True"
-                PopupAnimation="Slide"
-               Panel.ZIndex="1000"
-               StaysOpen="False">
-            <Border Background="White" BorderBrush="Gray" BorderThickness="1">
-                <DataGrid x:Name="suggestionDataGrid" 
-                        ItemsSource="{Binding Suggestions, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                        AutoGenerateColumns="False"
-                        SelectionChanged="SuggestionDataGrid_SelectionChanged"
-                        PreviewKeyDown="SuggestionDataGrid_PreviewKeyDown"
-                        MaxHeight="200">
+               IsOpen="{Binding IsPopupOpen, ElementName=uc}"
+               StaysOpen="False"
+               PopupAnimation="Slide"
+               MaxHeight="300"
+               Width="{Binding ActualWidth, ElementName=PART_TextBox}">
+
+            <Border BorderBrush="#FFABADB3" BorderThickness="1"
+                    Background="White" CornerRadius="2">
+                <DataGrid x:Name="PART_DataGrid"
+                          ItemsSource="{Binding FilteredItems, ElementName=uc}"
+                          AutoGenerateColumns="False"
+                          HeadersVisibility="Column"
+                          SelectionMode="Single"
+                          SelectionUnit="FullRow"
+                          IsReadOnly="True"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          SelectionChanged="OnSelectionChanged"
+                          PreviewKeyDown="HandleDataGridKey">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Col1" Binding="{Binding Col1}"/>
-                        <DataGridTextColumn Header="Col2" Binding="{Binding Col2}"/>
-                        <DataGridTextColumn Header="Col3" Binding="{Binding Col3}"/>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="0.3*"/>
+                        <DataGridTemplateColumn Header="Name" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ContentControl Content="{Binding Name}">
+                                        <ContentControl.ContentTemplate>
+                                            <DataTemplate>
+                                                <ContentControl>
+                                                    <ContentControl.Content>
+                                                        <MultiBinding Converter="{StaticResource HighlightConverter}">
+                                                            <Binding Path="Name"/>
+                                                            <Binding Path="SearchText" ElementName="uc"/>
+                                                        </MultiBinding>
+                                                    </ContentControl.Content>
+                                                </ContentControl>
+                                            </DataTemplate>
+                                        </ContentControl.ContentTemplate>
+                                    </ContentControl>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="1.5*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>
