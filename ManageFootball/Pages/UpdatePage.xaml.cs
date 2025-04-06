@@ -27,16 +27,9 @@ namespace ManageFootball.Pages
 
     public partial class UpdatePage : Page
     {
-        public ObservableCollection<DataItem> Items { get; set; } = new ObservableCollection<DataItem>();
-        
-
-
         public UpdatePage()
         {
             InitializeComponent();
-            DataContext = this;
-            Items.Add(new DataItem { Column1 = "", Column2 = "", Column3 = "" });
-            // Bắt sự kiện khi row edit kết thúc
         }
         private void dataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
         {
@@ -55,11 +48,5 @@ namespace ManageFootball.Pages
             }
         }
 
-    }
-    public class DataItem
-    {
-        public string Column1 { get; set; }
-        public string Column2 { get; set; }
-        public string Column3 { get; set; }
     }
 }

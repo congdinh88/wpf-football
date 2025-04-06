@@ -7,7 +7,6 @@
              xmlns:conv="clr-namespace:ManageFootball.Converters"
              mc:Ignorable="d"
              x:Name="uc">
-
     <UserControl.Resources>
         <conv:HighlightConverter x:Key="HighlightConverter"/>
 
@@ -32,14 +31,17 @@
                         <Setter.Value>
                             <ControlTemplate TargetType="TextBox">
                                 <Grid>
-                                    <Border Background="{TemplateBinding Background}"
+                                    <Border 
+                                        Background="{TemplateBinding Background}"
                                         BorderBrush="{TemplateBinding BorderBrush}"
                                         BorderThickness="{TemplateBinding BorderThickness}"
                                         CornerRadius="2"/>
-                                    <ScrollViewer x:Name="PART_ContentHost"
-                                            Margin="3"/>
+                                    <ScrollViewer 
+                                        x:Name="PART_ContentHost"
+                                        Margin="3"/>
                                     <Button x:Name="PART_DropDownButton"
                                         Content="▼"
+                                        FontSize="10"
                                         Width="20"
                                         HorizontalAlignment="Right"
                                         Click="TogglePopup"
@@ -60,7 +62,6 @@
                IsOpen="{Binding IsPopupOpen, ElementName=uc}"
                StaysOpen="False"
                PopupAnimation="Slide"
-               MaxHeight="300"
                Width="{Binding ActualWidth, ElementName=PART_TextBox}">
 
             <Border BorderBrush="#FFABADB3" BorderThickness="1"
@@ -76,17 +77,17 @@
                           SelectionChanged="OnSelectionChanged"
                           PreviewKeyDown="HandleDataGridKey">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="0.3*"/>
-                        <DataGridTemplateColumn Header="Name" Width="*">
+                        <DataGridTextColumn Header="Col1" Binding="{Binding Col1}" Width="0.3*"/>
+                        <DataGridTemplateColumn Header="Col2" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ContentControl Content="{Binding Name}">
+                                    <ContentControl Content="{Binding}">
                                         <ContentControl.ContentTemplate>
                                             <DataTemplate>
                                                 <ContentControl>
                                                     <ContentControl.Content>
                                                         <MultiBinding Converter="{StaticResource HighlightConverter}">
-                                                            <Binding Path="Name"/>
+                                                            <Binding Path="Col2"/>
                                                             <Binding Path="SearchText" ElementName="uc"/>
                                                         </MultiBinding>
                                                     </ContentControl.Content>
@@ -97,7 +98,7 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="1.5*"/>
+                        <DataGridTextColumn Header="Col3" Binding="{Binding Col3}" Width="1.5*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>

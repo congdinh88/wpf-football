@@ -11,10 +11,8 @@ namespace ManageFootball.Models
     {
         [ObservableProperty]private int _id;
 
-        [ObservableProperty]
-        private string _name = string.Empty;
+        [ObservableProperty] private string _name = string.Empty;
 
-        [ObservableProperty]
-        private string _email = string.Empty;
+        [ObservableProperty]private string _email = string.Empty;
     }
 }

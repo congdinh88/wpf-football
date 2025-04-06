@@ -4,10 +4,13 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:uc="clr-namespace:ManageFootball.ControlApp"
-      xmlns:vm="clr-namespace:ManageFootball.Templetes"
       xmlns:local="clr-namespace:ManageFootball.Pages"
       mc:Ignorable="d" 
+      xmlns:vm="clr-namespace:ManageFootball.ViewModels"
       Title="UpdatePage">
+    <Page.DataContext>
+        <vm:AutoCompleteVM/>
+    </Page.DataContext>
     <Border 
         Width="1000"
         Padding="10">
@@ -23,10 +26,12 @@
                 <TabItem
                     Header="Chi tiết">
                     <uc:AutoComplete
-                        ItemsSource="{Binding Employees}"
-                        SelectedItem="{Binding SelectedEmployee}"
-                        SelectedValuePath="Name"
-                        SearchText="{Binding SearchText}"
+                        Height="40"
+                        HorizontalAlignment="Left"
+                        ItemsSource="{Binding AutoCompleteSuggest, Mode=TwoWay}"
+                        SelectedItem="{Binding SelectedItem}"
+                        SearchText="{Binding SearchText, Mode=TwoWay}"
+                        SelectedValuePath="Col2"
                         Width="300"
                         Margin="10"/>
                 </TabItem>

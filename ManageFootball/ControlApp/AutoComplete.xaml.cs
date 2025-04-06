@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using ManageFootball.Models;
 using ManageFootball.Pages;
+using ManageFootball.ViewModels;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,7 +33,7 @@ namespace ManageFootball.ControlApp
 
     public partial class AutoComplete : UserControl
     {
-        private CollectionView _collectionView;
+        private ListCollectionView _collectionView;
 
         public static readonly DependencyProperty ItemsSourceProperty =
             DependencyProperty.Register(nameof(ItemsSource), typeof(IEnumerable), typeof(AutoComplete),
@@ -43,7 +45,7 @@ namespace ManageFootball.ControlApp
 
         public static readonly DependencyProperty SelectedValuePathProperty =
             DependencyProperty.Register(nameof(SelectedValuePath), typeof(string), typeof(AutoComplete),
-                new PropertyMetadata("Name"));
+                new PropertyMetadata(""));
 
         public static readonly DependencyProperty SearchTextProperty =
             DependencyProperty.Register(nameof(SearchText), typeof(string), typeof(AutoComplete),
@@ -92,14 +94,16 @@ namespace ManageFootball.ControlApp
         private static void OnItemsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is AutoComplete control)
+            {
                 control.InitializeCollectionView();
+            }
         }
 
         private void InitializeCollectionView()
         {
             if (ItemsSource == null) return;
 
-            _collectionView = new CollectionView(ItemsSource);
+            _collectionView = new ListCollectionView((IList)ItemsSource);
             _collectionView.Filter = item =>
             {
                 if (string.IsNullOrEmpty(SearchText)) return true;
@@ -124,6 +128,7 @@ namespace ManageFootball.ControlApp
                 SelectedItem = PART_DataGrid.SelectedItem;
                 var prop = SelectedItem.GetType().GetProperty(SelectedValuePath);
                 SearchText = prop?.GetValue(SelectedItem)?.ToString() ?? "";
+                PART_TextBox.Text = SearchText;
                 IsPopupOpen = false;
             }
         }
