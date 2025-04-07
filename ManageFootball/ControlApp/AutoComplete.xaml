@@ -24,7 +24,11 @@
     </UserControl.Resources>
 
     <Grid>
-        <TextBox x:Name="PART_TextBox">
+        <TextBox 
+            x:Name="PART_TextBox"
+            Text="{Binding SearchText}"
+            TextChanged="OnTextChanged"
+            PreviewKeyDown="OnTextBoxKeyDown">
             <TextBox.Style>
                 <Style TargetType="TextBox">
                     <Setter Property="Template">
@@ -78,26 +82,17 @@
                           PreviewKeyDown="HandleDataGridKey">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Col1" Binding="{Binding Col1}" Width="0.3*"/>
-                        <DataGridTemplateColumn Header="Col2" Width="*">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ContentControl Content="{Binding}">
-                                        <ContentControl.ContentTemplate>
-                                            <DataTemplate>
-                                                <ContentControl>
-                                                    <ContentControl.Content>
-                                                        <MultiBinding Converter="{StaticResource HighlightConverter}">
-                                                            <Binding Path="Col2"/>
-                                                            <Binding Path="SearchText" ElementName="uc"/>
-                                                        </MultiBinding>
-                                                    </ContentControl.Content>
-                                                </ContentControl>
-                                            </DataTemplate>
-                                        </ContentControl.ContentTemplate>
-                                    </ContentControl>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+                        <DataGridTextColumn 
+                            Header="Col2" 
+                            Binding="{Binding Col2}" 
+                            Width="*">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextWrapping" Value="NoWrap"/>
+                                    <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn Header="Col3" Binding="{Binding Col3}" Width="1.5*"/>
                     </DataGrid.Columns>
                 </DataGrid>

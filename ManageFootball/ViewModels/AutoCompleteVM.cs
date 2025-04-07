@@ -17,11 +17,10 @@ namespace ManageFootball.ViewModels
         [ObservableProperty] public ObservableCollection<AutoCompleteModel> _autoCompleteSuggest;
         public AutoCompleteVM() {
 
-            AutoCompleteSuggest  = new ObservableCollection<AutoCompleteModel>() {
+            AutoCompleteSuggest = new ObservableCollection<AutoCompleteModel>() {
                 new AutoCompleteModel{Col1="1êde",Col2="dad2",Col3="3fc"},
                 new AutoCompleteModel{Col1="Aaa",Col2="Bas",Col3="Caaa"}
             };
-
 
         }
     }

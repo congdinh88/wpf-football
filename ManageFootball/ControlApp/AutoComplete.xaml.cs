@@ -120,6 +120,43 @@ namespace ManageFootball.ControlApp
         {
             IsPopupOpen = !IsPopupOpen;
         }
+        private void OnTextBoxKeyDown(object sender, KeyEventArgs e)
+        {
+            if (!IsPopupOpen && (e.Key == Key.Down || e.Key == Key.Up))
+            {
+                IsPopupOpen = true;     // Mở popup
+                PART_DataGrid.Focus();  // Chuyển focus vào DataGrid
+                e.Handled = true;       // Ngăn sự kiện tiếp tục
+                return;
+            }
+
+            if (IsPopupOpen)
+            {
+                switch (e.Key)
+                {
+                    case Key.Down:
+                        MoveSelection(1);  // Di chuyển xuống
+                        break;
+                    case Key.Up:
+                        MoveSelection(-1); // Di chuyển lên
+                        break;
+                    case Key.Enter:
+                        ApplySelection();   // Chọn mục
+                        break;
+                    case Key.Escape:
+                        IsPopupOpen = false; // Đóng popup
+                        break;
+                }
+                e.Handled = true;
+            }
+        }
+
+        private void OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            SearchText = PART_TextBox.Text; // Cập nhật giá trị tìm kiếm
+            _collectionView?.Refresh();     // Lọc lại danh sách
+            IsPopupOpen = true;             // Hiển thị popup
+        }
 
         private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -128,7 +165,6 @@ namespace ManageFootball.ControlApp
                 SelectedItem = PART_DataGrid.SelectedItem;
                 var prop = SelectedItem.GetType().GetProperty(SelectedValuePath);
                 SearchText = prop?.GetValue(SelectedItem)?.ToString() ?? "";
-                PART_TextBox.Text = SearchText;
                 IsPopupOpen = false;
             }
         }
