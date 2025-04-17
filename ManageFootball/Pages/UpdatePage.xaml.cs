@@ -33,20 +33,18 @@ namespace ManageFootball.Pages
         }
         private void dataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
         {
-            DataGrid grid = sender as DataGrid;
-            if (grid != null)
+            DataGrid dataGrid = sender as DataGrid;
+            int rowIndex = e.Row.GetIndex(); // Lấy index của dòng
+
+            // Nếu là dòng cuối: Hiển thị "*"
+            if (rowIndex == dataGrid.Items.Count - 1)
             {
-                int rowIndex = e.Row.GetIndex();
-                if (rowIndex == grid.Items.Count - 1) // Kiểm tra hàng cuối
-                {
-                    e.Row.Header = "*";
-                }
-                else
-                {
-                    e.Row.Header = (rowIndex + 1).ToString(); // Số thứ tự bắt đầu từ 1
-                }
+                e.Row.Header = "*";
+            }
+            else // Các dòng khác: Hiển thị số thứ tự
+            {
+                e.Row.Header = (rowIndex + 1).ToString();
             }
         }
-
     }
 }

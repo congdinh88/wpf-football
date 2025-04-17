@@ -7,12 +7,22 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace ManageFootball.Models
 {
-    public partial class UpdatePageModel: ObservableObject
+    public partial class UpdatePageModel
     {
-        [ObservableProperty]private int _id;
+        
+    }
 
-        [ObservableProperty] private string _name = string.Empty;
-
-        [ObservableProperty]private string _email = string.Empty;
+    public class TestDatagrid
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public AutoCompleteModel SelectItemSuggest { get; set; }=new AutoCompleteModel();
+    }
+    public class AutoCompleteModel
+    {
+        public int Col1 { get; set; }
+        public string Col2 { get; set; }
+        public string Col3 { get; set; }
     }
 }

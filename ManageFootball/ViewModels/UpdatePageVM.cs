@@ -10,23 +10,21 @@ using ManageFootball.Models;
 
 namespace ManageFootball.ViewModels
 {
-    public partial class UpdatePageVM: ObservableObject
+    public partial class UpdatePageVM
     {
 
-        public ObservableCollection<UpdatePageModel> People { get; } = new ObservableCollection<UpdatePageModel>
-        {
-            new UpdatePageModel { Id = 1, Name = "John Doe", Email = "john@example.com" },
-            new UpdatePageModel { Id = 2, Name = "Jane Smith", Email = "jane@test.com" },
-            new UpdatePageModel { Id = 3, Name = "Bob Johnson", Email = "bob@domain.org" },
-            new UpdatePageModel { Id = 4, Name = "Alice Brown", Email = "alice@mail.net" }
-        };
-        [ObservableProperty] public string selectedValue;
-        [ObservableProperty] public string selectedPerson;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        public ObservableCollection<TestDatagrid> TestDatagrids { get;set; }
+        public ObservableCollection<AutoCompleteModel> AutoCompleteModels { get; set; }
+       
+        public UpdatePageVM() { 
+            TestDatagrids= new ObservableCollection<TestDatagrid>();
+            AutoCompleteModels = new ObservableCollection<AutoCompleteModel>
+            {
+                new AutoCompleteModel { Col1 = 1, Col2 = "John Doe", Col3 = "john@example.com" },
+                new AutoCompleteModel { Col1 = 2, Col2 = "Jane Smith", Col3 = "jane@test.com" },
+                new AutoCompleteModel { Col1 = 3, Col2 = "Bob Johnson", Col3 = "bob@domain.org" },
+                new AutoCompleteModel { Col1 = 4, Col2 = "Alice Brown", Col3 = "alice@mail.net" }
+            };
         }
     }
 }
